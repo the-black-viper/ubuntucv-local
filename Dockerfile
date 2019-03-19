@@ -2,14 +2,8 @@ FROM ubuntu:18.04 AS test
 
 LABEL maintainer="Joshua Javier"
 
-ENV RUSTUP_HOME=/usr/local/rustup \
-  CARGO_HOME=/usr/local/cargo \
-  PATH=/usr/local/cargo/bin:$PATH \
-  RUST_VERSION=1.33.0 \
-  USER=root
-
+RUN sed -i 's/archive.ubuntu.com/mirror.pregi.net/' /etc/apt/sources.list;
 RUN apt-get update
-
 RUN mkdir /opencv /root/.ssh 
 
 ##Install OPENCV Dependencies
@@ -54,9 +48,13 @@ RUN apt-get install -y libtiff-dev;
 COPY unzip/* /var/cache/apt/archives/
 RUN apt-get install -y unzip;
 
+COPY wget/* /var/cache/apt/archives/
+RUN apt-get install -y wget;
+
 #Checkinstall
 COPY checkinstall/* /var/cache/apt/archives/
 RUN apt-get install -y checkinstall
+
 
 ENV OPENCV_VERSION='4.0.1'
 RUN cd /opt && \
@@ -72,10 +70,10 @@ RUN mkdir -p /opt/opencv-${OPENCV_VERSION}/build && \
     -D BUILD_DOCS=OFF \
     -D BUILD_EXAMPLES=OFF \
     -D BUILD_opencv_apps=OFF \
-    -D BUILD_opencv_python2=OFF \
-    -D BUILD_opencv_python3=OFF \
+    -D BUILD_opencv_python2=ON \
+    -D BUILD_opencv_python3=ON \
     -D BUILD_PERF_TESTS=OFF \
-    -D BUILD_SHARED_LIBS=ON \ 
+    -D BUILD_SHARED_LIBS=OFF \ 
     -D BUILD_TESTS=OFF \
     -D ENABLE_PRECOMPILED_HEADERS=OFF \
     -D FORCE_VTK=OFF \
