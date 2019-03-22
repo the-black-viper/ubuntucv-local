@@ -18,3 +18,5 @@ libjpeg-dev
 libtiff-dev
 #libjasper-dev NOT INCLUDED
 unzip
+wget
+checkinstall
