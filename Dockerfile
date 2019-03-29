@@ -74,7 +74,7 @@ RUN mkdir -p /opt/opencv-${OPENCV_VERSION}/build && \
     -D BUILD_opencv_python2=ON \
     -D BUILD_opencv_python3=ON \
     -D BUILD_PERF_TESTS=OFF \
-    -D BUILD_SHARED_LIBS=ON \
+    -D BUILD_SHARED_LIBS=OFF \
     -D OPENCV_GENERATE_PKGCONFIG=YES \
     -D BUILD_TESTS=OFF \
     -D ENABLE_PRECOMPILED_HEADERS=OFF\
